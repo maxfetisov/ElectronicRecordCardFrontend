@@ -1,0 +1,86 @@
+<div
+  [ngClass]="{
+      'sidebar': true,
+      'sidebar-collapsed': collapsed
+    }">
+  <div>
+    <div
+      class="header"
+    >
+      <span>
+              <ng-icon class="icon-size" name="heroAcademicCap"/>
+      <span [ngClass]="{
+      'label': true,
+      'label-collapsed': collapsed
+    }">Электронная зачетка</span>
+      </span>
+    </div>
+    <ul class="menu-list">
+              <li class="nav-element">
+                      <span>
+                <ng-icon class="icon-size" name="heroBuildingLibrary"/>
+                <span [ngClass]="{
+      'label': true,
+      'label-collapsed': collapsed
+                    }">Институты </span>
+            </span>
+              </li>
+      <li class="nav-element">
+                      <span>
+                <ng-icon class="icon-size" name="heroUserGroup"/>
+                <span [ngClass]="{
+      'label': true,
+      'label-collapsed': collapsed
+    }">Группы</span>
+                    </span>
+
+      </li>
+      <li class="nav-element">
+                      <span>
+                <ng-icon class="icon-size" name="heroBookOpen"/>
+                <span [ngClass]="{
+      'label': true,
+      'label-collapsed': collapsed
+    }">Предметы</span>
+                    </span>
+
+      </li>
+      <li class="nav-element">
+                      <span>
+                <ng-icon class="icon-size" name="heroUser"/>
+                <span [ngClass]="{
+      'label': true,
+      'label-collapsed': collapsed
+    }">Пользователи</span>
+                    </span>
+
+      </li>
+      <li class="nav-element">
+                      <span>
+                <ng-icon class="icon-size" name="heroCheck"/>
+                <span [ngClass]="{
+      'label': true,
+      'label-collapsed': collapsed
+    }">Оценки</span>
+                    </span>
+
+      </li>
+      <li class="nav-element">
+                      <span>
+                <ng-icon class="icon-size" name="heroDocumentCheck"/>
+                <span [ngClass]="{
+      'label': true,
+      'label-collapsed': collapsed
+    }">Типы контроля</span>
+                    </span>
+
+      </li>
+    </ul>
+  </div>
+  <button class="w-100 d-flex justify-content-center collapse-button" (click)="collapse()">
+    <ng-icon class="icon-size" [ngClass]="{
+      'collapse-button-icon': true,
+      'collapse-button-icon-collapsed': collapsed
+    }" name="heroArrowLongLeft"/>
+  </button>
+</div>

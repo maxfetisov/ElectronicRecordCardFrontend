@@ -28,8 +28,7 @@ export class InstituteComponent implements OnInit{
       .subscribe(institutes => {
         this.institutes = institutes;
         this.listItems = institutes.map(institute => { return {id: institute.id, text: institute.name}});
-        console.error(this.institutes);
-      })
+      });
   }
 
 }

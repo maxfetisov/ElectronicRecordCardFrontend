@@ -1,3 +1,9 @@
-<app-header></app-header>
-<div style="margin-top: 3em"></div>
-<app-institute></app-institute>
+<app-sidebar
+  (onCollapse)="onCollapse($event)"
+></app-sidebar>
+<div [ngClass]="{
+  'main': true,
+  'main-collapsed': collapsed
+}">
+  <app-institute></app-institute>
+</div>

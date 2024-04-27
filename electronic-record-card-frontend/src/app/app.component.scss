@@ -1,0 +1,10 @@
+@import "./variables.scss";
+
+.main {
+  margin-left: $offset;
+  transition: all .5s ease;
+}
+
+.main-collapsed {
+  margin-left: $offset-collapsed;
+}

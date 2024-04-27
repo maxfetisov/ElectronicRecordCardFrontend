@@ -1,0 +1,118 @@
+@import "../variables.scss";
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: $main-color;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: $offset;
+  height: 100%;
+  transition: all .5s ease;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  user-select: none;
+  overflow: hidden;
+}
+
+.sidebar-collapsed {
+  width: $offset-collapsed;
+}
+
+.label {
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 1;
+  visibility: visible;
+  transition: all .2s ease;
+}
+
+.label-collapsed {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.header {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  width: 100%;
+  height: 5rem;
+  color: $primary-text-color;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.header > span {
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+}
+
+.header ng-icon {
+  margin: 1rem;
+}
+
+.menu-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-element {
+  width: 100%;
+  height: 4rem;
+  transition: all .5s ease;
+}
+
+.nav-element > span {
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-element:hover {
+  transition: all .5s ease;
+  background-color: $secondary-color-5;
+}
+
+.nav-element > span > span {
+  margin-left: 0;
+  transition: all .5s ease;
+}
+
+.nav-element:hover > span > span {
+  margin-left: 1rem;
+  transition: all .5s ease;
+}
+
+.nav-element ng-icon {
+  margin: 1rem;
+}
+
+.collapse-button-container {
+  position: relative;
+}
+
+.collapse-button {
+  bottom: 0;
+  border: none;
+  background-color: transparent;
+  transition: all .5s ease;
+}
+
+.collapse-button:hover {
+  background-color: $secondary-color-5;
+}
+
+.icon-size {
+  font-size: 2rem;
+}
+
+.collapse-button-icon {
+  transition: all .5s ease;
+}
+
+.collapse-button-icon-collapsed {
+  transform: rotate(180deg);
+}
