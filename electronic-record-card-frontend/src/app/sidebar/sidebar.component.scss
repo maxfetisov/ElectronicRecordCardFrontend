@@ -95,6 +95,9 @@
 }
 
 .collapse-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   bottom: 0;
   border: none;
   background-color: transparent;
