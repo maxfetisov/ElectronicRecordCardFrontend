@@ -1,0 +1,95 @@
+@import "../variables.scss";
+
+.header {
+  margin: 2rem;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.list-item {
+  font-size: 1.2rem;
+  height: 2.5rem;
+  width: 100%;
+  background-color: transparent;
+  transition: all .5s ease;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.list-item:hover {
+  background-color: $secondary-color-5;
+  transition: all .5s ease;
+}
+
+.list-item:hover > .main-text {
+  margin-left: 1.5rem;
+  transition: all .5s ease;
+}
+
+.list-item:hover > .additional-text {
+  margin-left: .5rem;
+  transition: all .5s ease;
+}
+
+.main-text {
+  margin: 1rem;
+  color: $primary-text-color;
+  transition: all .5s ease;
+}
+
+.additional-text {
+  color: $secondary-text-color;
+  transition: all .5s ease;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+}
+
+.action {
+  background-color: transparent;
+  border: none;
+  color: $secondary-text-color;
+  transition: all .5s ease;
+  display: flex;
+  align-items: center;
+}
+
+.action:hover {
+  color: $primary-text-color;
+  transition: all .5s ease;
+}
+
+.bottom-panel-container {
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.bottom-panel {
+  position: sticky;
+  background-color: $main-color;
+  width: 90%;
+  height: 2.5rem;
+  border-radius: 100px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+.add-action {
+  height: 100%;
+  width: 2.5rem;
+  border: none;
+  border-radius: 100px;
+  background-color: transparent;
+  transition: all .5s ease;
+}
+
+.add-action:hover {
+  background-color: $secondary-color-5;
+  transition: all .5s ease;
+}

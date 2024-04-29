@@ -8,8 +8,8 @@ import {provideIcons} from "@ng-icons/core";
 import {
   heroAcademicCap,
   heroArrowLongLeft, heroBookOpen, heroBuildingLibrary,
-  heroCheck, heroDocumentCheck,
-  heroHomeModern,
+  heroCheck, heroDocumentCheck, heroEye,
+  heroHomeModern, heroPencil, heroPlus, heroTrash,
   heroUser,
   heroUserGroup
 } from "@ng-icons/heroicons/outline";
@@ -30,7 +30,11 @@ import {
     heroCheck,
     heroBuildingLibrary,
     heroDocumentCheck,
-    heroBookOpen
+    heroBookOpen,
+    heroPencil,
+    heroTrash,
+    heroPlus,
+    heroEye
   })]
 })
 export class AppComponent {

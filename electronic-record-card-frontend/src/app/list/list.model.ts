@@ -1,4 +1,10 @@
 export interface IListItem {
   id: number,
-  text: string
+  text: string,
+  additionalText?: string
+}
+
+export interface IButton {
+  icon: string,
+  action: Function
 }

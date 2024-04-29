@@ -1,3 +1,18 @@
-<div *ngFor="let item of listItems">
-  {{item.text}}
+<div class="header">{{header}}</div>
+<div class="list-item" *ngFor="let item of listItems">
+  <span class="main-text">{{item.text}}</span>
+  <span class="additional-text">{{item.additionalText}}</span>
+  <div class="buttons">
+    <button class="action" *ngFor="let action of actions">
+      <ng-icon name="{{action.icon}}"/>
+    </button>
+  </div>
 </div>
+<div class="bottom-panel-container">
+  <div class="bottom-panel">
+    <button class="add-action">
+      <ng-icon name="{{addAction?.icon}}"/>
+    </button>
+  </div>
+</div>
+
