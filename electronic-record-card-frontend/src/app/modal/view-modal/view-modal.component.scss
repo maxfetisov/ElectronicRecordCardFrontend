@@ -1,0 +1,16 @@
+@import "../../variables.scss";
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 1.8rem;
+}
+
+.key {
+  color: $primary-text-color;
+}
+
+.value {
+  color: $secondary-text-color;
+}

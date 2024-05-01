@@ -13,12 +13,19 @@ import {
   heroUser,
   heroUserGroup
 } from "@ng-icons/heroicons/outline";
-
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ListComponent, InstituteComponent, SidebarComponent, NgClass],
+  imports: [
+    RouterOutlet,
+    ListComponent,
+    InstituteComponent,
+    SidebarComponent,
+    NgClass,
+    NgbModule
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   viewProviders: [provideIcons({

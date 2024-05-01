@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {IButton, IListItem} from "./list.model";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {NgIcon} from "@ng-icons/core";
 
 @Component({
@@ -8,7 +8,8 @@ import {NgIcon} from "@ng-icons/core";
   standalone: true,
   imports: [
     NgForOf,
-    NgIcon
+    NgIcon,
+    NgIf
   ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'

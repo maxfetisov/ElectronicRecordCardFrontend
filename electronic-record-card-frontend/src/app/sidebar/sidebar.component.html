@@ -16,7 +16,7 @@
       </span>
     </div>
     <ul class="menu-list">
-              <li class="nav-element">
+      <li class="nav-element" (click)="router.navigate(['./institutes'])">
                       <span>
                 <ng-icon class="icon-size" name="heroBuildingLibrary"/>
                 <span [ngClass]="{
@@ -24,8 +24,8 @@
       'label-collapsed': collapsed
                     }">Институты </span>
             </span>
-              </li>
-      <li class="nav-element">
+      </li>
+      <li class="nav-element" (click)="router.navigate(['./groups'])">
                       <span>
                 <ng-icon class="icon-size" name="heroUserGroup"/>
                 <span [ngClass]="{
@@ -35,7 +35,7 @@
                     </span>
 
       </li>
-      <li class="nav-element">
+      <li class="nav-element" (click)="router.navigate(['./subjects'])">
                       <span>
                 <ng-icon class="icon-size" name="heroBookOpen"/>
                 <span [ngClass]="{
@@ -45,7 +45,7 @@
                     </span>
 
       </li>
-      <li class="nav-element">
+      <li class="nav-element" (click)="router.navigate(['./users'])">
                       <span>
                 <ng-icon class="icon-size" name="heroUser"/>
                 <span [ngClass]="{
@@ -55,7 +55,7 @@
                     </span>
 
       </li>
-      <li class="nav-element">
+      <li class="nav-element" (click)="router.navigate(['./marks'])">
                       <span>
                 <ng-icon class="icon-size" name="heroCheck"/>
                 <span [ngClass]="{
@@ -65,7 +65,7 @@
                     </span>
 
       </li>
-      <li class="nav-element">
+      <li class="nav-element" (click)="router.navigate(['./control-types'])">
                       <span>
                 <ng-icon class="icon-size" name="heroDocumentCheck"/>
                 <span [ngClass]="{

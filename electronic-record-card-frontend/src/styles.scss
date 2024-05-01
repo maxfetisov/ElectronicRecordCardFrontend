@@ -1,5 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
+@import "../node_modules/bootstrap/scss/bootstrap";
+@import "./app/variables.scss";
+
 * {
   font: 1em 'Andale Mono', monospace;
   margin: 0;
+}
+
+ng-icon {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.modal {
+  display: flex !important;
+  justify-content: right;
+}
+
+.modal-dialog {
+  margin: 0;
+  top: 0;
+  right: 0;
+  width: $offset * 2;
+}
+
+.modal-content {
+  top: 0;
+  height: 100vh;
+  right: 0;
+  border-radius: 0 !important;
+  background-color: $main-color;
 }
