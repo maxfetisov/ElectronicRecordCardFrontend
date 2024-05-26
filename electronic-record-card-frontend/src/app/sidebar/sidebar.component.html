@@ -5,6 +5,7 @@
     }">
   <div>
     <div
+      (click)="router.navigate([''])"
       class="header"
     >
       <span>
@@ -16,6 +17,26 @@
       </span>
     </div>
     <ul class="menu-list">
+      <li class="nav-element" (click)="router.navigate(['./profile'])">
+                      <span>
+                <ng-icon class="icon-size" name="heroUserCircle"/>
+                <span [ngClass]="{
+      'label': true,
+      'label-collapsed': collapsed
+    }">Профиль</span>
+                    </span>
+
+      </li>
+      <li class="nav-element" (click)="router.navigate([''])">
+                      <span>
+                <ng-icon class="icon-size" name="heroClipboardDocumentList"/>
+                <span [ngClass]="{
+      'label': true,
+      'label-collapsed': collapsed
+    }">Ведомость</span>
+                    </span>
+
+      </li>
       <li class="nav-element" (click)="router.navigate(['./institutes'])">
                       <span>
                 <ng-icon class="icon-size" name="heroBuildingLibrary"/>
@@ -72,16 +93,6 @@
       'label': true,
       'label-collapsed': collapsed
     }">Типы контроля</span>
-                    </span>
-
-      </li>
-      <li class="nav-element" (click)="router.navigate([''])">
-                      <span>
-                <ng-icon class="icon-size" name="heroClipboardDocumentList"/>
-                <span [ngClass]="{
-      'label': true,
-      'label-collapsed': collapsed
-    }">Ведомость</span>
                     </span>
 
       </li>

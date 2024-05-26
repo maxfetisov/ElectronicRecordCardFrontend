@@ -33,4 +33,12 @@ export class UserService {
     return this.http.get<IUser>(RESOURCE_URL.concat(this.USER_URL, '/', String(id)));
   }
 
+  delete(id: number, version: number): Observable<void> {
+    return this.http.delete<void>(RESOURCE_URL.concat(this.USER_URL, '/', String(id)), {
+      params: {
+        version: version
+      }
+    });
+  }
+
 }

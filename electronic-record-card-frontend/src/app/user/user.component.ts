@@ -7,6 +7,7 @@ import {UserService} from "./service/user.service";
 import {ViewModalComponent} from "../modal/view-modal/view-modal.component";
 import {Page} from "../pagination/model/pagination.model";
 import {PAGE_SIZE} from "../pagination/constants/pagination.constants";
+import {DeleteModalComponent} from "../modal/delete-modal/delete-modal.component";
 
 @Component({
   selector: 'app-user',
@@ -21,6 +22,7 @@ export class UserComponent implements OnInit{
 
   protected userPage?: Page<IUser>;
   protected listItems?: IListItem[];
+  protected selectedPage = 1;
   protected actions: IButton[] = [
     {
       icon: "heroEye",
@@ -32,7 +34,7 @@ export class UserComponent implements OnInit{
     },
     {
       icon: "heroTrash",
-      action: () => {}
+      action: this.openDeleteModal.bind(this)
     }
   ];
   protected addAction: IButton = {
@@ -48,11 +50,12 @@ export class UserComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.load(1)
+    this.load(this.selectedPage)
   }
 
   protected load(pageNumber: number): void {
-    this.userService.getAllInPage(pageNumber - 1, PAGE_SIZE)
+    this.selectedPage = pageNumber;
+    this.userService.getAllInPage(this.selectedPage - 1, PAGE_SIZE)
       .subscribe(page => {
         this.userPage = page;
         this.listItems = page.content?.map(user => { return {
@@ -79,6 +82,21 @@ export class UserComponent implements OnInit{
         'Номер зачетной книжки': user.recordBookNumber
       }
     })
+  }
+
+  protected openDeleteModal(id: number): void {
+    const modalRef = this.modalService.open(DeleteModalComponent, {
+      backdrop: true,
+    })
+    modalRef.componentInstance.header = 'Удаление пользователя';
+    modalRef.componentInstance.onDelete = () => this.delete(id);
+  }
+
+  private delete(id: number): void {
+    const version = this.userPage?.content
+      ?.find(user => user.id === id)?.version
+    this.userService.delete(id, version ?? 1)
+      .subscribe(() => this.load(this.selectedPage));
   }
 
 }

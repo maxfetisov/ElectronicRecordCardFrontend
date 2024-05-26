@@ -33,4 +33,12 @@ export class GroupService {
     return this.http.get<IGroup>(RESOURCE_URL.concat(this.GROUP_URL, '/', String(id)));
   }
 
+  delete(id: number, version: number): Observable<void> {
+    return this.http.delete<void>(RESOURCE_URL.concat(this.GROUP_URL, '/', String(id)), {
+      params: {
+        version: version
+      }
+    })
+  }
+
 }

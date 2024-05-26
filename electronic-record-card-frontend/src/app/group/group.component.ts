@@ -7,6 +7,7 @@ import {GroupService} from "./service/group.service";
 import {ViewModalComponent} from "../modal/view-modal/view-modal.component";
 import {Page} from "../pagination/model/pagination.model";
 import {PAGE_SIZE} from "../pagination/constants/pagination.constants";
+import {DeleteModalComponent} from "../modal/delete-modal/delete-modal.component";
 
 @Component({
   selector: 'app-group',
@@ -21,6 +22,7 @@ export class GroupComponent implements OnInit{
 
 protected groupPage?: Page<IGroup>;
 protected listItems?: IListItem[];
+protected selectedPage = 1;
 protected actions: IButton[] = [
     {
       icon: "heroEye",
@@ -32,7 +34,7 @@ protected actions: IButton[] = [
     },
     {
       icon: "heroTrash",
-      action: () => {}
+      action: this.openDeleteModal.bind(this)
     }
   ];
 protected addAction: IButton = {
@@ -48,11 +50,12 @@ protected addAction: IButton = {
   }
 
   ngOnInit(): void {
-    this.load(1);
+    this.load(this.selectedPage);
   }
 
   protected load(pageNumber: number): void {
-    this.groupService.getAllInPage(pageNumber - 1, PAGE_SIZE)
+    this.selectedPage = pageNumber;
+    this.groupService.getAllInPage(this.selectedPage - 1, PAGE_SIZE)
       .subscribe(page => {
         this.groupPage = page;
         this.listItems = page.content?.map(group => { return {
@@ -75,6 +78,20 @@ protected addAction: IButton = {
         'Дата поступления': group.admissionDate
       }
     })
+  }
+
+  protected openDeleteModal(id: number): void {
+    const modalRef = this.modalService.open(DeleteModalComponent, {
+      backdrop: true,
+    })
+    modalRef.componentInstance.header = 'Удаление группы';
+    modalRef.componentInstance.onDelete = () => this.delete(id);
+  }
+
+  private delete(id: number): void {
+    const version = this.groupPage?.content
+      ?.find(group => group.id === id)?.version
+    this.groupService.delete(id, version ?? 1).subscribe(() => this.load(1));
   }
 
 }

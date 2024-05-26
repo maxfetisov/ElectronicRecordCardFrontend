@@ -13,3 +13,26 @@ export interface IAuthResponse {
   refreshToken: string
 
 }
+
+export interface IChangePasswordRequest {
+
+  oldPassword: string,
+
+  newPassword: string
+
+}
+
+export interface IRole {
+
+  id?: number,
+
+  name?: Role
+
+}
+
+export enum Role {
+  STUDENT = "STUDENT",
+  TEACHER = "TEACHER",
+  DEAN_OFFICE_EMPLOYEE = "DEAN_OFFICE_EMPLOYEE",
+  ADMINISTRATOR = "ADMINISTRATOR"
+}

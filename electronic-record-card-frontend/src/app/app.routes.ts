@@ -2,6 +2,10 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
+    path: '',
+    loadComponent: () => import('../app/statement/statement.component').then(module => module.StatementComponent)
+  },
+  {
     path: 'login',
     loadComponent: () => import('../app/login/login.component').then(module => module.LoginComponent)
   },
@@ -30,7 +34,7 @@ export const routes: Routes = [
     loadComponent: () => import('../app/user/user.component').then(module => module.UserComponent)
   },
   {
-    path: '',
-    loadComponent: () => import('../app/statement/statement.component').then(module => module.StatementComponent)
+    path: 'profile',
+    loadComponent: () => import('../app/profile/profile.component').then(module => module.ProfileComponent)
   }
 ];

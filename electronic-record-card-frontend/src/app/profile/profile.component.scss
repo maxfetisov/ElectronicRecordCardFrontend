@@ -1,0 +1,53 @@
+@import "../variables.scss";
+
+.header {
+  margin: 2rem;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.profile-container {
+  padding: 1rem;
+}
+
+.profile-field {
+  display: flex;
+  justify-content: space-between;
+  margin: .5rem 0;
+}
+
+.profile-field-name {
+  color: $primary-text-color;
+  font-weight: bold;
+}
+
+.profile-value {
+  color: $secondary-text-color;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  transition: all .5s ease;
+}
+
+.btn:hover {
+  background-color: $main-color;
+  transition: all .5s ease;
+}
+
+form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+input {
+  width: 25%;
+}
+
+ng-icon {
+  margin-right: .5rem;
+}

@@ -7,6 +7,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ViewModalComponent} from "../modal/view-modal/view-modal.component";
 import {Page} from "../pagination/model/pagination.model";
 import {PAGE_SIZE} from "../pagination/constants/pagination.constants";
+import {DeleteModalComponent} from "../modal/delete-modal/delete-modal.component";
 
 @Component({
   selector: 'app-institute',
@@ -19,9 +20,9 @@ import {PAGE_SIZE} from "../pagination/constants/pagination.constants";
 })
 export class InstituteComponent implements OnInit {
 
-  images?: {src: string}[];
   protected institutePage?: Page<IInstitute>;
   protected listItems?: IListItem[];
+  protected selectedPage = 1;
   protected actions: IButton[] = [
     {
       icon: "heroEye",
@@ -34,8 +35,7 @@ export class InstituteComponent implements OnInit {
     },
     {
       icon: "heroTrash",
-      action: () => {
-      }
+      action: this.openDeleteModal.bind(this)
     }
   ];
   protected addAction: IButton = {
@@ -52,11 +52,12 @@ export class InstituteComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.load(1);
+    this.load(this.selectedPage);
   }
 
   protected load(pageNumber: number) {
-    this.instituteService.getAllInPage(pageNumber - 1, PAGE_SIZE)
+    this.selectedPage = pageNumber;
+    this.instituteService.getAllInPage(this.selectedPage - 1, PAGE_SIZE)
       .subscribe(page => {
         this.institutePage = page;
         this.listItems = page.content?.map(institute => {
@@ -80,5 +81,20 @@ export class InstituteComponent implements OnInit {
         'Полное название': institute.fullName
       }
     })
+  }
+
+  protected openDeleteModal(id: number): void {
+    const modalRef = this.modalService.open(DeleteModalComponent, {
+      backdrop: true,
+    })
+    modalRef.componentInstance.header = 'Удаление института';
+    modalRef.componentInstance.onDelete = () => this.delete(id);
+  }
+
+  private delete(id: number): void {
+    const version = this.institutePage?.content
+      ?.find(institute => institute.id === id)?.version
+    this.instituteService.delete(id, version ?? 1)
+      .subscribe(() => this.load(this.selectedPage));
   }
 }

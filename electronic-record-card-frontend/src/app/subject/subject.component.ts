@@ -8,6 +8,7 @@ import {ViewModalComponent} from "../modal/view-modal/view-modal.component";
 import {Page} from "../pagination/model/pagination.model";
 import {PAGE_SIZE} from "../pagination/constants/pagination.constants";
 import {NgIf} from "@angular/common";
+import {DeleteModalComponent} from "../modal/delete-modal/delete-modal.component";
 
 @Component({
   selector: 'app-subject',
@@ -25,6 +26,8 @@ export class SubjectComponent implements OnInit {
 
   protected listItems?: IListItem[];
 
+  protected selectedPage = 1;
+
   protected actions: IButton[] = [
     {
       icon: "heroEye",
@@ -37,8 +40,7 @@ export class SubjectComponent implements OnInit {
     },
     {
       icon: "heroTrash",
-      action: () => {
-      }
+      action: this.openDeleteModal.bind(this)
     }
   ];
   protected addAction: IButton = {
@@ -55,7 +57,7 @@ export class SubjectComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.load(1);
+    this.load(this.selectedPage);
   }
 
   protected openViewModal(id: number): void {
@@ -71,7 +73,8 @@ export class SubjectComponent implements OnInit {
   }
 
   load(pageNumber: number): void {
-    this.subjectService.getAllInPage(pageNumber - 1, PAGE_SIZE)
+    this.selectedPage = pageNumber;
+    this.subjectService.getAllInPage(this.selectedPage - 1, PAGE_SIZE)
       .subscribe(page => {
         this.subjectPage = page;
         this.listItems = page.content?.map(subject => {
@@ -81,6 +84,21 @@ export class SubjectComponent implements OnInit {
           }
         });
       });
+  }
+
+  protected openDeleteModal(id: number): void {
+    const modalRef = this.modalService.open(DeleteModalComponent, {
+      backdrop: true,
+    })
+    modalRef.componentInstance.header = 'Удаление предмета';
+    modalRef.componentInstance.onDelete = () => this.delete(id);
+  }
+
+  private delete(id: number): void {
+    const version = this.subjectPage?.content
+      ?.find(subject => subject.id === id)?.version
+    this.subjectService.delete(id, version ?? 1)
+      .subscribe(() => this.load(this.selectedPage));
   }
 
 }

@@ -1,4 +1,6 @@
-export interface IUser {
+import {IVersion} from "../../version/model/version.model";
+
+export interface IUser extends IVersion {
   id: number,
   login: string,
   lastName: string,

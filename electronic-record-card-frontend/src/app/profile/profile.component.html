@@ -1,0 +1,50 @@
+<div class="header">Профиль</div>
+<div class="profile-container">
+  <div class="profile-field">
+    <span class="profile-field-name">ФИО: </span>
+    <span class="profile-value">{{account?.lastName + ' ' + account?.firstName + ' ' + (account?.middleName ?? '')}}</span>
+  </div>
+  <div class="profile-field" *ngIf="account?.phoneNumber">
+    <span class="profile-field-name">Номер телефона: </span>
+    <span class="profile-value">{{account?.phoneNumber}}</span>
+  </div>
+  <div class="profile-field" *ngIf="account?.email">
+    <span class="profile-field-name">Адрес электронной почты: </span>
+    <span class="profile-value">{{account?.email}}</span>
+  </div>
+  <div class="profile-field" *ngIf="group">
+    <span class="profile-field-name">Группа: </span>
+    <span class="profile-value">{{group.name}}</span>
+  </div>
+  <div class="profile-field" *ngIf="institute">
+    <span class="profile-field-name">Институт: </span>
+    <span class="profile-value">{{institute.name}}</span>
+  </div>
+  <div class="profile-field" *ngIf="roles">
+    <span class="profile-field-name">Роли:</span>
+    <span class="profile-value"><span *ngFor="let role of roles">{{' ' + role?.name}}</span></span>
+  </div>
+  <hr/>
+  <h5 class="profile-field-name">Смена пароля</h5>
+  <form [formGroup]="passwordForm" (ngSubmit)="changePassword()">
+    <label for="oldPassword">Старый пароль:</label>
+    <input
+      id="oldPassword"
+      class="form-control"
+      type="password"
+      [formControl]="passwordForm.controls.oldPassword"
+    />
+    <label for="newPassword">Новый пароль:</label>
+    <input
+      id="newPassword"
+      class="form-control"
+      type="password"
+      [formControl]="passwordForm.controls.newPassword"
+    />
+    <button type="submit" class="btn"><ng-icon name="heroLockClosed"/> Сменить пароль</button>
+  </form>
+  <hr/>
+  <div class="d-flex justify-content-end">
+    <button class="btn" (click)="logout()"><ng-icon name="heroArrowRightOnRectangle"/> Выйти</button>
+  </div>
+</div>
