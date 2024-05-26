@@ -75,6 +75,16 @@
                     </span>
 
       </li>
+      <li class="nav-element" (click)="router.navigate([''])">
+                      <span>
+                <ng-icon class="icon-size" name="heroClipboardDocumentList"/>
+                <span [ngClass]="{
+      'label': true,
+      'label-collapsed': collapsed
+    }">Ведомость</span>
+                    </span>
+
+      </li>
     </ul>
   </div>
   <button class="w-100 d-flex justify-content-center collapse-button" (click)="collapse()">

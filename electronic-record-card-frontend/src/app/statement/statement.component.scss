@@ -1,0 +1,56 @@
+@import "../variables.scss";
+
+.header {
+  margin: 2rem;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+table {
+  width: 100%;
+}
+
+thead {
+  font-weight: bolder;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  background-color: $main-color;
+}
+
+tr {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+th, td {
+  padding: 0.5rem;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+select {
+  width: 10rem;
+  margin-left: .5rem;
+  margin-right: .5rem;
+}
+
+ng-icon {
+  margin-right: .5rem;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  transition: all .5s ease;
+}
+
+.btn:hover {
+  background-color: $main-color;
+  transition: all .5s ease;
+}

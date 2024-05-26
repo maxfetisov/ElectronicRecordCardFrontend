@@ -1,0 +1,24 @@
+<div class="w-100 d-flex justify-content-center align-items-center login-root">
+  <form [formGroup]="loginForm" class="login-container" (ngSubmit)="onLogin()">
+    <h1>
+      Электронная зачетка
+    </h1>
+    <div>
+      <label for="loginControl">Логин:</label>
+      <input
+        id="loginControl"
+        [formControl]="loginForm.controls.login"
+        class="form-control"
+        type="text"
+      />
+      <label for="passwordControl">Пароль:</label>
+      <input
+        id="passwordControl"
+        [formControl]="loginForm.controls.password"
+        class="form-control"
+        type="password"
+      />
+    </div>
+    <button class="btn" type="submit">Войти</button>
+  </form>
+</div>

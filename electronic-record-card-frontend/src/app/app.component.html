@@ -1,9 +1,10 @@
 <app-sidebar
+  *ngIf="account"
   (onCollapse)="onCollapse($event)"
 ></app-sidebar>
 <div [ngClass]="{
-  'main': true,
-  'main-collapsed': collapsed
+  'main': account,
+  'main-collapsed': collapsed && account
 }">
   <router-outlet></router-outlet>
 </div>

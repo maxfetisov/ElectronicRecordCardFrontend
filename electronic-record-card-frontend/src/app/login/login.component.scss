@@ -1,0 +1,48 @@
+@import "../variables.scss";
+
+.login-root {
+  height: 100vh;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 35%;
+  height: 20rem;
+  background-color: $main-color;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+}
+
+.login-container>h1 {
+  padding-top: 2rem;
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+.login-container>div {
+  padding: 0 2rem;
+}
+
+.login-container>div>input {
+  margin-bottom: 1rem;
+}
+
+.login-container>div>label {
+  margin-bottom: .4rem;
+}
+
+.login-container>button {
+  background-color: transparent;
+  border: none;
+  border-radius: 1rem;
+  transition: all .5s ease;
+}
+
+.login-container>button:hover {
+  background-color: $secondary-color-5;
+  transition: all .5s ease;
+}
+

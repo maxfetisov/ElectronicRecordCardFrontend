@@ -17,6 +17,7 @@ import {ViewModalComponent} from "../modal/view-modal/view-modal.component";
 })
 export class InstituteComponent implements OnInit {
 
+  images?: {src: string}[];
   protected institutes?: IInstitute[];
   protected listItems?: IListItem[];
   protected actions: IButton[] = [
