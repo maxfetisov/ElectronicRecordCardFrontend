@@ -5,6 +5,8 @@ import {IInstitute} from "./model/institute.model";
 import {IButton, IListItem} from "../list/list.model";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ViewModalComponent} from "../modal/view-modal/view-modal.component";
+import {Page} from "../pagination/model/pagination.model";
+import {PAGE_SIZE} from "../pagination/constants/pagination.constants";
 
 @Component({
   selector: 'app-institute',
@@ -18,7 +20,7 @@ import {ViewModalComponent} from "../modal/view-modal/view-modal.component";
 export class InstituteComponent implements OnInit {
 
   images?: {src: string}[];
-  protected institutes?: IInstitute[];
+  protected institutePage?: Page<IInstitute>;
   protected listItems?: IListItem[];
   protected actions: IButton[] = [
     {
@@ -50,10 +52,14 @@ export class InstituteComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.instituteService.getAll()
-      .subscribe(institutes => {
-        this.institutes = institutes;
-        this.listItems = institutes.map(institute => {
+    this.load(1);
+  }
+
+  protected load(pageNumber: number) {
+    this.instituteService.getAllInPage(pageNumber - 1, PAGE_SIZE)
+      .subscribe(page => {
+        this.institutePage = page;
+        this.listItems = page.content?.map(institute => {
           return {
             id: institute.id,
             text: institute.name,

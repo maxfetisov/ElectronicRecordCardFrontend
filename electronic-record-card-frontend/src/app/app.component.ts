@@ -7,12 +7,24 @@ import {NgClass, NgIf} from "@angular/common";
 import {provideIcons} from "@ng-icons/core";
 import {
   heroAcademicCap,
-  heroArrowLongLeft, heroBookOpen, heroBuildingLibrary,
-  heroCheck, heroDocumentCheck, heroEye,
-  heroHomeModern, heroPencil, heroPlus, heroTrash,
+  heroArrowLongLeft,
+  heroBookOpen,
+  heroBuildingLibrary,
+  heroCheck,
+  heroDocumentCheck,
+  heroEye,
+  heroHomeModern,
+  heroPencil,
+  heroPlus,
+  heroTrash,
   heroUser,
   heroUserGroup,
-  heroClipboardDocumentList, heroArrowDownTray, heroMagnifyingGlass
+  heroClipboardDocumentList,
+  heroArrowDownTray,
+  heroMagnifyingGlass,
+  heroChevronDoubleLeft,
+  heroChevronDoubleRight,
+  heroChevronLeft, heroChevronRight
 } from "@ng-icons/heroicons/outline";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {IUser} from "./user/model/user.model";
@@ -48,7 +60,11 @@ import {AccountService} from "./account/service/account.service";
     heroEye,
     heroClipboardDocumentList,
     heroArrowDownTray,
-    heroMagnifyingGlass
+    heroMagnifyingGlass,
+    heroChevronDoubleLeft,
+    heroChevronDoubleRight,
+    heroChevronLeft,
+    heroChevronRight
   })]
 })
 export class AppComponent implements OnInit {

@@ -3,5 +3,7 @@
   [listItems]="listItems"
   [actions]="actions"
   [addAction]="addAction"
+  [totalPages]="userPage?.totalPages"
+  (onPageChange)="load($event)"
 ></app-list>
 

@@ -3,6 +3,7 @@ import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {RESOURCE_URL} from "../../app.constants";
 import {IUser} from "../model/user.model";
+import {Page} from "../../pagination/model/pagination.model";
 
 @Injectable({
   providedIn: "root"
@@ -17,6 +18,15 @@ export class UserService {
 
   getAll(): Observable<IUser[]> {
     return this.http.get<IUser[]>(RESOURCE_URL.concat(this.USER_URL));
+  }
+
+  getAllInPage(pageNumber: number, pageSize: number): Observable<Page<IUser>> {
+    return this.http.get<Page<IUser>>(RESOURCE_URL.concat(this.USER_URL, "/page"), {
+      params: {
+        pageNumber: pageNumber,
+        pageSize: pageSize
+      }
+    });
   }
 
   getById(id: number): Observable<IUser> {

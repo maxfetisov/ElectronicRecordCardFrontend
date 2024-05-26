@@ -1,7 +1,8 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {IButton, IListItem} from "./list.model";
 import {NgForOf, NgIf} from "@angular/common";
 import {NgIcon} from "@ng-icons/core";
+import {PaginationComponent} from "../pagination/pagination.component";
 
 @Component({
   selector: 'app-list',
@@ -9,7 +10,8 @@ import {NgIcon} from "@ng-icons/core";
   imports: [
     NgForOf,
     NgIcon,
-    NgIf
+    NgIf,
+    PaginationComponent
   ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
@@ -23,5 +25,11 @@ export class ListComponent {
   @Input() actions?: IButton[];
 
   @Input() addAction?: IButton;
+
+  @Input() totalPages?: number;
+
+  @Output() onPageChange = new EventEmitter<number>()
+
+  protected showedPages = 7;
 
 }

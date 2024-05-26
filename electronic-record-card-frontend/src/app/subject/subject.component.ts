@@ -5,20 +5,26 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {ISubject} from "./model/subject.model";
 import {SubjectService} from "./service/subject.service";
 import {ViewModalComponent} from "../modal/view-modal/view-modal.component";
+import {Page} from "../pagination/model/pagination.model";
+import {PAGE_SIZE} from "../pagination/constants/pagination.constants";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-subject',
   standalone: true,
   imports: [
-    ListComponent
+    ListComponent,
+    NgIf
   ],
   templateUrl: './subject.component.html',
   styleUrl: './subject.component.scss'
 })
 export class SubjectComponent implements OnInit {
 
-  protected subjects?: ISubject[];
+  protected subjectPage?: Page<ISubject>;
+
   protected listItems?: IListItem[];
+
   protected actions: IButton[] = [
     {
       icon: "heroEye",
@@ -49,16 +55,7 @@ export class SubjectComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.subjectService.getAll()
-      .subscribe(subjects => {
-        this.subjects = subjects;
-        this.listItems = subjects.map(subject => {
-          return {
-            id: subject.id,
-            text: subject.name
-          }
-        });
-      });
+    this.load(1);
   }
 
   protected openViewModal(id: number): void {
@@ -71,6 +68,19 @@ export class SubjectComponent implements OnInit {
         'Название': subject.name
       }
     });
+  }
+
+  load(pageNumber: number): void {
+    this.subjectService.getAllInPage(pageNumber - 1, PAGE_SIZE)
+      .subscribe(page => {
+        this.subjectPage = page;
+        this.listItems = page.content?.map(subject => {
+          return {
+            id: subject.id,
+            text: subject.name
+          }
+        });
+      });
   }
 
 }

@@ -1,0 +1,36 @@
+<div class="pagination-container" *ngIf="pages">
+  <div
+    class="pagination-item"
+    (click)="changePage(1)"
+  >
+    <ng-icon name="heroChevronDoubleLeft"/>
+  </div>
+  <div
+    class="pagination-item"
+    (click)="changePage(selectedPage - 1)"
+  >
+    <ng-icon name="heroChevronLeft"/>
+  </div>
+  <div
+    *ngFor="let page of pages"
+    class="pagination-item"
+    [ngClass]="{
+      'selected': page === selectedPage
+    }"
+    (click)="changePage(page)"
+  >
+    {{page}}
+  </div>
+  <div
+    class="pagination-item"
+    (click)="changePage(selectedPage + 1)"
+  >
+    <ng-icon name="heroChevronRight"/>
+  </div>
+  <div
+    class="pagination-item"
+    (click)="changePage(totalPages!)"
+  >
+    <ng-icon name="heroChevronDoubleRight"/>
+  </div>
+</div>

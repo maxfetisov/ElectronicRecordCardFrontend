@@ -5,6 +5,8 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {IGroup} from "./model/group.model";
 import {GroupService} from "./service/group.service";
 import {ViewModalComponent} from "../modal/view-modal/view-modal.component";
+import {Page} from "../pagination/model/pagination.model";
+import {PAGE_SIZE} from "../pagination/constants/pagination.constants";
 
 @Component({
   selector: 'app-group',
@@ -17,7 +19,7 @@ import {ViewModalComponent} from "../modal/view-modal/view-modal.component";
 })
 export class GroupComponent implements OnInit{
 
-protected groups?: IGroup[];
+protected groupPage?: Page<IGroup>;
 protected listItems?: IListItem[];
 protected actions: IButton[] = [
     {
@@ -46,10 +48,14 @@ protected addAction: IButton = {
   }
 
   ngOnInit(): void {
-    this.groupService.getAll()
-      .subscribe(groups => {
-        this.groups = groups;
-        this.listItems = groups.map(group => { return {
+    this.load(1);
+  }
+
+  protected load(pageNumber: number): void {
+    this.groupService.getAllInPage(pageNumber - 1, PAGE_SIZE)
+      .subscribe(page => {
+        this.groupPage = page;
+        this.listItems = page.content?.map(group => { return {
           id: group.id,
           text: group.name,
           additionalText: group.fullName

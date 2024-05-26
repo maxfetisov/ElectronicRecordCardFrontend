@@ -3,4 +3,6 @@
   [listItems]="listItems"
   [actions]="actions"
   [addAction]="addAction"
+  [totalPages]="institutePage?.totalPages"
+  (onPageChange)="load($event)"
 ></app-list>

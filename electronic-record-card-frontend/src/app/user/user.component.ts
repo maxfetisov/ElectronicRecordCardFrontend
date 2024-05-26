@@ -5,6 +5,8 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {IUser} from "./model/user.model";
 import {UserService} from "./service/user.service";
 import {ViewModalComponent} from "../modal/view-modal/view-modal.component";
+import {Page} from "../pagination/model/pagination.model";
+import {PAGE_SIZE} from "../pagination/constants/pagination.constants";
 
 @Component({
   selector: 'app-user',
@@ -17,7 +19,7 @@ import {ViewModalComponent} from "../modal/view-modal/view-modal.component";
 })
 export class UserComponent implements OnInit{
 
-  protected users?: IUser[];
+  protected userPage?: Page<IUser>;
   protected listItems?: IListItem[];
   protected actions: IButton[] = [
     {
@@ -46,13 +48,17 @@ export class UserComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.userService.getAll()
-      .subscribe(users => {
-        this.users = users;
-        this.listItems = users.map(user => { return {
+    this.load(1)
+  }
+
+  protected load(pageNumber: number): void {
+    this.userService.getAllInPage(pageNumber - 1, PAGE_SIZE)
+      .subscribe(page => {
+        this.userPage = page;
+        this.listItems = page.content?.map(user => { return {
           id: user.id,
           text: user.login,
-          additionalText: user.lastName + ' ' + user.firstName + ' ' + user.middleName
+          additionalText: user.lastName + ' ' + user.firstName + ' ' + (user.middleName ?? '')
         }});
       });
   }

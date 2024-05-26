@@ -1,0 +1,30 @@
+@import "../variables.scss";
+
+.pagination-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination-item {
+  width: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0);
+  transition: all .5s ease;
+  color: $secondary-text-color;
+  font-size: 1rem;
+}
+
+.pagination-item:hover {
+  color: rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  transition: all .5s ease;
+}
+
+.selected {
+  color: $primary-text-color;
+  border-bottom: 1px solid $primary-text-color;
+}

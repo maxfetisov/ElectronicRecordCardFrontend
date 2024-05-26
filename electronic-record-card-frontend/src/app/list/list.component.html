@@ -13,6 +13,16 @@
     <button class="add-action">
       <ng-icon name="{{addAction.icon}}"/>
     </button>
+    <app-pagination
+      *ngIf="totalPages"
+      [totalPages]="totalPages"
+      [showedPageNumber]="showedPages"
+      (onPageChange)="onPageChange.emit($event)"
+    >
+    </app-pagination>
+    <button class="add-action opacity-0">
+      <ng-icon name="{{addAction.icon}}"/>
+    </button>
   </div>
 </div>
 
