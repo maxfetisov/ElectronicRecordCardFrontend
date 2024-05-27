@@ -9,6 +9,7 @@ import {Page} from "../pagination/model/pagination.model";
 import {PAGE_SIZE} from "../pagination/constants/pagination.constants";
 import {NgIf} from "@angular/common";
 import {DeleteModalComponent} from "../modal/delete-modal/delete-modal.component";
+import {CreateUpdateModalComponent} from "../modal/create-update-modal/create-update-modal.component";
 
 @Component({
   selector: 'app-subject',
@@ -45,8 +46,7 @@ export class SubjectComponent implements OnInit {
   ];
   protected addAction: IButton = {
     icon: "heroPlus",
-    action: () => {
-    }
+    action: this.openCreateModal.bind(this)
   };
 
 
@@ -60,6 +60,21 @@ export class SubjectComponent implements OnInit {
     this.load(this.selectedPage);
   }
 
+  protected load(pageNumber: number): void {
+    this.selectedPage = pageNumber;
+    this.subjectService.getAllInPage(this.selectedPage - 1, PAGE_SIZE)
+      .subscribe(page => {
+        this.subjectPage = page;
+        this.listItems = page.content?.map(subject => {
+          return {
+            id: subject.id!,
+            text: subject.name
+          }
+        });
+      });
+  }
+
+
   protected openViewModal(id: number): void {
     this.subjectService.getById(id).subscribe(subject => {
       const modalRef = this.modalService.open(ViewModalComponent, {
@@ -72,26 +87,30 @@ export class SubjectComponent implements OnInit {
     });
   }
 
-  load(pageNumber: number): void {
-    this.selectedPage = pageNumber;
-    this.subjectService.getAllInPage(this.selectedPage - 1, PAGE_SIZE)
-      .subscribe(page => {
-        this.subjectPage = page;
-        this.listItems = page.content?.map(subject => {
-          return {
-            id: subject.id,
-            text: subject.name
-          }
-        });
-      });
+  protected openCreateModal(): void {
+    const modalRef = this.modalService.open(CreateUpdateModalComponent, {
+      backdrop: true,
+    });
+    modalRef.componentInstance.header = 'Создание предмета';
+    modalRef.componentInstance.inputs = [{
+      label: 'Название',
+      name: 'name',
+      type: 'text'
+    }];
+    modalRef.componentInstance.onCreateOrUpdate = (value: any) => this.create(value);
   }
 
   protected openDeleteModal(id: number): void {
     const modalRef = this.modalService.open(DeleteModalComponent, {
       backdrop: true,
-    })
+    });
     modalRef.componentInstance.header = 'Удаление предмета';
     modalRef.componentInstance.onDelete = () => this.delete(id);
+  }
+
+  private create(subject: any): void {
+    this.subjectService.create(subject)
+      .subscribe(() => this.load(this.selectedPage));
   }
 
   private delete(id: number): void {

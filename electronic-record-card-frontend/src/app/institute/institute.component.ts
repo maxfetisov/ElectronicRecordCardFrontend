@@ -8,6 +8,7 @@ import {ViewModalComponent} from "../modal/view-modal/view-modal.component";
 import {Page} from "../pagination/model/pagination.model";
 import {PAGE_SIZE} from "../pagination/constants/pagination.constants";
 import {DeleteModalComponent} from "../modal/delete-modal/delete-modal.component";
+import {CreateUpdateModalComponent} from "../modal/create-update-modal/create-update-modal.component";
 
 @Component({
   selector: 'app-institute',
@@ -40,8 +41,7 @@ export class InstituteComponent implements OnInit {
   ];
   protected addAction: IButton = {
     icon: "heroPlus",
-    action: () => {
-    }
+    action: this.openCreateModal.bind(this)
   };
 
 
@@ -83,12 +83,36 @@ export class InstituteComponent implements OnInit {
     })
   }
 
+  protected openCreateModal(): void {
+    const modalRef = this.modalService.open(CreateUpdateModalComponent, {
+      backdrop: true,
+    });
+    modalRef.componentInstance.header = 'Создание института';
+    modalRef.componentInstance.inputs = [{
+      label: 'Название',
+      name: 'name',
+      type: 'text'
+    },
+      {
+        label: 'Полное название',
+        name: 'fullName',
+        type: 'text'
+      }
+    ];
+    modalRef.componentInstance.onCreateOrUpdate = (value: any) => this.create(value);
+  }
+
   protected openDeleteModal(id: number): void {
     const modalRef = this.modalService.open(DeleteModalComponent, {
       backdrop: true,
     })
     modalRef.componentInstance.header = 'Удаление института';
     modalRef.componentInstance.onDelete = () => this.delete(id);
+  }
+
+  private create(institute: any): void {
+    this.instituteService.create(institute)
+      .subscribe(() => this.load(this.selectedPage));
   }
 
   private delete(id: number): void {

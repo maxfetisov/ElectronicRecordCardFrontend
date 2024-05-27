@@ -33,6 +33,10 @@ export class SubjectService {
     return this.http.get<ISubject>(RESOURCE_URL.concat(this.SUBJECT_URL, '/', String(id)));
   }
 
+  create(request: ISubject): Observable<ISubject> {
+    return this.http.post<ISubject>(RESOURCE_URL.concat(this.SUBJECT_URL), request);
+  }
+
   delete(id: number, version: number): Observable<void> {
     return this.http.delete<void>(RESOURCE_URL.concat(this.SUBJECT_URL, '/', String(id)), {
       params: {

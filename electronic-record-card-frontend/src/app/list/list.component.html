@@ -10,7 +10,10 @@
 </div>
 <div class="bottom-panel-container" *ngIf="addAction">
   <div class="bottom-panel">
-    <button class="add-action">
+    <button
+      class="add-action"
+      (click)="addAction.action()"
+    >
       <ng-icon name="{{addAction.icon}}"/>
     </button>
     <app-pagination

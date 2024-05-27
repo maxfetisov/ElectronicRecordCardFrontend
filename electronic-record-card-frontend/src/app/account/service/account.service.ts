@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
-import {combineLatest, forkJoin, map, Observable, ReplaySubject, shareReplay, Subject, tap} from "rxjs";
+import {combineLatest, Observable, ReplaySubject, Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {IAuthRequest, IAuthResponse, IChangePasswordRequest, IRole, Role} from "../model/account.model";
+import {IAuthRequest, IAuthResponse, IChangePasswordRequest, IRole} from "../model/account.model";
 import {RESOURCE_URL} from "../../app.constants";
 import {IUser} from "../../user/model/user.model";
 

@@ -33,6 +33,10 @@ export class UserService {
     return this.http.get<IUser>(RESOURCE_URL.concat(this.USER_URL, '/', String(id)));
   }
 
+  create(user: IUser): Observable<IUser> {
+    return this.http.post<IUser>(RESOURCE_URL.concat(this.USER_URL, '/register'), user);
+  }
+
   delete(id: number, version: number): Observable<void> {
     return this.http.delete<void>(RESOURCE_URL.concat(this.USER_URL, '/', String(id)), {
       params: {

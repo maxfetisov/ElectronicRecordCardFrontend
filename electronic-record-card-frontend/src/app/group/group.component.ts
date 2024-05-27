@@ -8,6 +8,8 @@ import {ViewModalComponent} from "../modal/view-modal/view-modal.component";
 import {Page} from "../pagination/model/pagination.model";
 import {PAGE_SIZE} from "../pagination/constants/pagination.constants";
 import {DeleteModalComponent} from "../modal/delete-modal/delete-modal.component";
+import {CreateUpdateModalComponent} from "../modal/create-update-modal/create-update-modal.component";
+import {InstituteService} from "../institute/service/institute.service";
 
 @Component({
   selector: 'app-group',
@@ -39,13 +41,14 @@ protected actions: IButton[] = [
   ];
 protected addAction: IButton = {
     icon: "heroPlus",
-    action: () => {}
+    action: this.openCreateModal.bind(this)
   };
 
 
   constructor(
     private groupService: GroupService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private instituteService: InstituteService
 ) {
   }
 
@@ -80,12 +83,55 @@ protected addAction: IButton = {
     })
   }
 
+  protected openCreateModal(): void {
+    this.instituteService.getAll().subscribe(institutes => {
+      const modalRef = this.modalService.open(CreateUpdateModalComponent, {
+        backdrop: true,
+      });
+      modalRef.componentInstance.header = 'Создание группы';
+      modalRef.componentInstance.inputs = [{
+        label: 'Название',
+        name: 'name',
+        type: 'text'
+      },
+        {
+          label: 'Полное название',
+          name: 'fullName',
+          type: 'text'
+        },
+        {
+          label: 'Дата поступления',
+          name: 'admissionDate',
+          type: 'date'
+        },
+        {
+          label: 'Институт',
+          name: 'instituteId',
+          type: 'select',
+          options: institutes.map(institute => {
+            return {
+              id: institute.id,
+              title: institute.name
+            }
+          })
+        }];
+      modalRef.componentInstance.onCreateOrUpdate = (value: any) => this.create(value);
+    });
+  }
+
+
   protected openDeleteModal(id: number): void {
     const modalRef = this.modalService.open(DeleteModalComponent, {
       backdrop: true,
     })
     modalRef.componentInstance.header = 'Удаление группы';
     modalRef.componentInstance.onDelete = () => this.delete(id);
+  }
+
+  private create(group: any): void {
+    group.instituteId = group.instituteId[0];
+    this.groupService.create(group)
+      .subscribe(() => this.load(this.selectedPage));
   }
 
   private delete(id: number): void {

@@ -28,7 +28,7 @@ ng-icon {
 
 .modal-content {
   top: 0;
-  height: 100vh;
+  min-height: 100vh;
   right: 0;
   border-radius: 0 !important;
   background-color: $main-color;

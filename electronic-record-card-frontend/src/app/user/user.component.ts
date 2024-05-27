@@ -8,6 +8,11 @@ import {ViewModalComponent} from "../modal/view-modal/view-modal.component";
 import {Page} from "../pagination/model/pagination.model";
 import {PAGE_SIZE} from "../pagination/constants/pagination.constants";
 import {DeleteModalComponent} from "../modal/delete-modal/delete-modal.component";
+import {CreateUpdateModalComponent} from "../modal/create-update-modal/create-update-modal.component";
+import {AccountService} from "../account/service/account.service";
+import {GroupService} from "../group/service/group.service";
+import {InstituteService} from "../institute/service/institute.service";
+import {combineLatest} from "rxjs";
 
 @Component({
   selector: 'app-user',
@@ -39,13 +44,16 @@ export class UserComponent implements OnInit{
   ];
   protected addAction: IButton = {
     icon: "heroPlus",
-    action: () => {}
+    action: this.openCreateModal.bind(this)
   };
 
 
   constructor(
     private userService: UserService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private accountService: AccountService,
+    private groupService: GroupService,
+    private instituteService: InstituteService
   ) {
   }
 
@@ -84,12 +92,107 @@ export class UserComponent implements OnInit{
     })
   }
 
+  protected openCreateModal(): void {
+    combineLatest([
+      this.groupService.getAll(),
+      this.instituteService.getAll(),
+      this.accountService.getRoles()
+    ]).subscribe(([groups, institutes, roles]) => {
+      const modalRef = this.modalService.open(CreateUpdateModalComponent, {
+        backdrop: true,
+      });
+      modalRef.componentInstance.header = 'Создание пользователя';
+      modalRef.componentInstance.inputs = [{
+        label: 'Логин',
+        name: 'login',
+        type: 'text'
+      },
+        {
+          label: 'Пароль',
+          name: 'password',
+          type: 'password'
+        },
+        {
+          label: 'Фамилия',
+          name: 'lastName',
+          type: 'text'
+        },
+        {
+          label: 'Имя',
+          name: 'firstName',
+          type: 'text'
+        },
+        {
+          label: 'Отчество',
+          name: 'middleName',
+          type: 'text'
+        },
+        {
+          label: 'Номер телефона',
+          name: 'phoneNumber',
+          type: 'tel'
+        },
+        {
+          label: 'Адрес электронной почты',
+          name: 'email',
+          type: 'email'
+        },
+        {
+          label: 'Номер зачетной книжки',
+          name: 'recordBookNumber',
+          type: 'text'
+        },
+        {
+          label: 'Группа',
+          name: 'groupId',
+          type: 'select',
+          options: groups.map(group => {
+            return {
+              id: group.id,
+              title: group.name
+            }
+          })
+        },
+        {
+          label: 'Институт',
+          name: 'instituteId',
+          type: 'select',
+          options: institutes.map(institute => {
+            return {
+              id: institute.id,
+              title: institute.name
+            }
+          })
+        },
+        {
+          label: 'Роли',
+          name: 'roles',
+          type: 'select',
+          multiple: true,
+          options: roles.map(role => {
+            return {
+              id: role.id,
+              title: role.name
+            }
+          })
+        }];
+      modalRef.componentInstance.onCreateOrUpdate = (value: any) => this.create(value);
+    });
+  }
+
   protected openDeleteModal(id: number): void {
     const modalRef = this.modalService.open(DeleteModalComponent, {
       backdrop: true,
     })
     modalRef.componentInstance.header = 'Удаление пользователя';
     modalRef.componentInstance.onDelete = () => this.delete(id);
+  }
+
+  private create(user: any): void {
+    user.instituteId = user.instituteId[0];
+    user.groupId = user.groupId[0];
+    this.userService.create(user)
+      .subscribe(() => this.load(this.selectedPage));
   }
 
   private delete(id: number): void {

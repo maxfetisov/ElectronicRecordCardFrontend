@@ -33,6 +33,10 @@ export class InstituteService {
     return this.http.get<IInstitute>(RESOURCE_URL.concat(this.INSTITUTE_URL, '/', String(id)));
   }
 
+  create(institute: IInstitute): Observable<IInstitute> {
+    return this.http.post<IInstitute>(RESOURCE_URL.concat(this.INSTITUTE_URL), institute);
+  }
+
   delete(id: number, version: number): Observable<void> {
     return this.http.delete<void>(RESOURCE_URL.concat(this.INSTITUTE_URL, '/', String(id)), {
       params: {
