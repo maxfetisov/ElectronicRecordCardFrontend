@@ -33,6 +33,10 @@ export class UserService {
     return this.http.get<IUser>(RESOURCE_URL.concat(this.USER_URL, '/', String(id)));
   }
 
+  getByCriteria(request: any): Observable<IUser[]> {
+    return this.http.post<IUser[]>(RESOURCE_URL.concat(this.USER_URL, '/filter'), request);
+  }
+
   create(user: IUser): Observable<IUser> {
     return this.http.post<IUser>(RESOURCE_URL.concat(this.USER_URL, '/register'), user);
   }

@@ -1,0 +1,58 @@
+<div class="header">Связи</div>
+<div class="usct-container">
+  <div *ngFor="let subject of subjects">
+    <div
+      class="subject"
+      [ngClass]="{
+        'selected-subject': selectedSubject === subject
+      }"
+      (click)="selectSubject(subject)"
+    >
+      <span>{{subject.name}}</span>
+      <ng-icon name="heroChevronDown"/>
+    </div>
+    <div
+      *ngIf="selectedSubject === subject"
+      class="teacher-container"
+      [ngClass]="{
+        'selected-teacher-container': selectedSubject === subject
+      }"
+    >
+      <div *ngFor="let teacher of teachers">
+        <div
+          class="teacher"
+          [ngClass]="{
+        'selected-teacher': selectedTeacher === teacher
+      }"
+          (click)="selectTeacher(teacher)"
+        >
+          <span>{{teacher.lastName}} {{teacher.firstName}} {{teacher?.middleName ?? ''}} ({{teacher.login}})</span>
+          <ng-icon name="heroChevronDown"/>
+        </div>
+        <div
+          *ngIf="selectedTeacher === teacher"
+          class="semester-container"
+          [ngClass]="{
+        'selected-teacher-container': selectedSubject === subject
+      }"
+        >
+          <div *ngFor="let semester of userSubjectControlTypes?.keys()">
+            <div
+              class="semester"
+              [ngClass]="{
+        'selected-semester': false
+      }"
+            >
+              <span>{{semester}} семестр</span>
+              <ng-icon name="heroChevronDown"/>
+            </div>
+          </div>
+          <button type="button" class="btn">
+            <ng-icon name="heroPlus"/>
+            <span>Добавить семестр</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

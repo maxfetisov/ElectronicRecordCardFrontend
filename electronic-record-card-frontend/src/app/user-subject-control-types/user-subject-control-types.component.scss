@@ -1,0 +1,112 @@
+@import "../variables.scss";
+
+.header {
+  margin: 2rem;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.usct-container {
+  width: 100%;
+}
+
+.subject {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2rem;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  transition: all .5s ease;
+  user-select: none;
+  z-index: 10;
+}
+
+.subject:hover {
+  background-color: $main-color;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  transition: all .5s ease;
+  cursor: pointer;
+}
+
+ng-icon {
+  margin-left: .5rem;
+  transition: all .5s ease;
+
+}
+
+.selected-subject {
+  background-color: $main-color;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top:0;
+  transition: all .5s ease;
+}
+
+.selected-teacher>ng-icon,
+.selected-subject>ng-icon {
+  transition: all .5s ease;
+  transform: rotateX(180deg);
+}
+
+.semester-container,
+.teacher-container {
+  padding: 1rem;
+  visibility: collapse;
+  transition: all .5s ease;
+  background-color: rgba(245, 245, 245, 0.4);
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.semester-container {
+  border-radius: 1rem;
+}
+
+.semester-container>div,
+.teacher-container>div {
+  width: 95%;
+  display: block;
+}
+
+.selected-teacher-container {
+  display: flex;
+  justify-content: center;
+  visibility: visible;
+  transition: all .5s ease;
+}
+
+.semester,
+.teacher {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2rem;
+  border: 1px solid transparent;
+  border-radius: 1rem;
+  transition: all .5s ease;
+  user-select: none;
+  width: 100%;
+  z-index: 9;
+}
+
+.semester:hover,
+.teacher:hover {
+  background-color: $main-color;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  transition: all .5s ease;
+  cursor: pointer;
+}
+
+.selected-teacher {
+  background-color: $main-color;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top: 2rem;
+  transition: all .5s ease;
+}

@@ -36,5 +36,10 @@ export const routes: Routes = [
   {
     path: 'profile',
     loadComponent: () => import('../app/profile/profile.component').then(module => module.ProfileComponent)
+  },
+  {
+    path: 'user-subject-control-types',
+    loadComponent: () => import('../app/user-subject-control-types/user-subject-control-types.component')
+      .then(module => module.UserSubjectControlTypesComponent)
   }
 ];

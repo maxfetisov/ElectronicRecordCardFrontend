@@ -96,6 +96,16 @@
                     </span>
 
       </li>
+      <li class="nav-element" (click)="router.navigate(['./user-subject-control-types'])">
+                      <span>
+                <ng-icon class="icon-size" name="heroLink"/>
+                <span [ngClass]="{
+      'label': true,
+      'label-collapsed': collapsed
+    }">Связи</span>
+                    </span>
+
+      </li>
     </ul>
   </div>
   <button class="w-100 d-flex justify-content-center collapse-button" (click)="collapse()">

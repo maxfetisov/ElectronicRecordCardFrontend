@@ -289,6 +289,9 @@ export class UserComponent implements OnInit{
   private create(user: any): void {
     user.instituteId = user.instituteId[0];
     user.groupId = user.groupId[0];
+    if(user.recordBookNumber === "") {
+      user.recordBookNumber = null;
+    }
     this.userService.create(user)
       .subscribe(() => this.load(this.selectedPage));
   }
@@ -296,6 +299,9 @@ export class UserComponent implements OnInit{
   private update(oldUser: IUser, newUser: any) {
     newUser.instituteId = newUser.instituteId[0];
     newUser.groupId = newUser.groupId[0];
+    if(newUser.recordBookNumber === "") {
+      newUser.recordBookNumber = null;
+    }
     this.userService.update({
       id: oldUser.id,
       version: oldUser.version,

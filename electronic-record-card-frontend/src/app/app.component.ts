@@ -24,7 +24,13 @@ import {
   heroMagnifyingGlass,
   heroChevronDoubleLeft,
   heroChevronDoubleRight,
-  heroChevronLeft, heroChevronRight, heroArrowRightOnRectangle, heroLockClosed, heroUserCircle
+  heroChevronLeft,
+  heroChevronRight,
+  heroArrowRightOnRectangle,
+  heroLockClosed,
+  heroUserCircle,
+  heroLink,
+  heroChevronDown
 } from "@ng-icons/heroicons/outline";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {IUser} from "./user/model/user.model";
@@ -67,7 +73,9 @@ import {AccountService} from "./account/service/account.service";
     heroChevronRight,
     heroArrowRightOnRectangle,
     heroLockClosed,
-    heroUserCircle
+    heroUserCircle,
+    heroLink,
+    heroChevronDown
   })]
 })
 export class AppComponent implements OnInit {
