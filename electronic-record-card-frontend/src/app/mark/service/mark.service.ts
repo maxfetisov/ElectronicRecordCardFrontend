@@ -23,4 +23,8 @@ export class MarkService {
     return this.http.get<IMark>(RESOURCE_URL.concat(this.MARK_URL, '/', String(id)));
   }
 
+  update(mark: IMark): Observable<IMark> {
+    return this.http.put<IMark>(RESOURCE_URL.concat(this.MARK_URL), mark);
+  }
+
 }

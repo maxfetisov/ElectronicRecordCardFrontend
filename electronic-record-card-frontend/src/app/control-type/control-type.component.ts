@@ -5,6 +5,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {IControlType} from "./model/control-type.model";
 import {ControlTypeService} from "./service/control-type.service";
 import {ViewModalComponent} from "../modal/view-modal/view-modal.component";
+import {CreateUpdateModalComponent} from "../modal/create-update-modal/create-update-modal.component";
 
 @Component({
   selector: 'app-control-type',
@@ -26,7 +27,7 @@ export class ControlTypeComponent implements OnInit{
     },
     {
       icon: "heroPencil",
-      action: () => {}
+      action: this.openUpdateModal.bind(this)
     }
   ];
 
@@ -38,6 +39,10 @@ export class ControlTypeComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.load();
+  }
+
+  private load() {
     this.controlTypeService.getAll()
       .subscribe(controlTypes => {
         this.controlTypes = controlTypes;
@@ -58,6 +63,33 @@ export class ControlTypeComponent implements OnInit{
         'Название': controlType.title
       }
     });
+  }
+
+  protected openUpdateModal(id: number): void {
+    const controlType = this.controlTypes
+      ?.find(element => element.id === id);
+    if(!controlType) {
+      return;
+    }
+    const modalRef = this.modalService.open(CreateUpdateModalComponent, {
+      backdrop: true,
+    });
+    modalRef.componentInstance.header = 'Изменение типа контроля';
+    modalRef.componentInstance.inputs = [{
+      label: 'Название',
+      name: 'title',
+      type: 'text',
+      value: controlType?.title
+    }];
+    modalRef.componentInstance.onCreateOrUpdate = (value: any) => this.update(controlType, value);
+  }
+
+  private update(oldControlType: IControlType, newControlType: any) {
+    this.controlTypeService.update({
+      id: oldControlType.id,
+      version: oldControlType.version,
+      ...newControlType
+    }).subscribe(() => this.load());
   }
 
 }

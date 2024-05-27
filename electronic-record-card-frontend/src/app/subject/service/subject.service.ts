@@ -33,8 +33,12 @@ export class SubjectService {
     return this.http.get<ISubject>(RESOURCE_URL.concat(this.SUBJECT_URL, '/', String(id)));
   }
 
-  create(request: ISubject): Observable<ISubject> {
-    return this.http.post<ISubject>(RESOURCE_URL.concat(this.SUBJECT_URL), request);
+  create(subject: ISubject): Observable<ISubject> {
+    return this.http.post<ISubject>(RESOURCE_URL.concat(this.SUBJECT_URL), subject);
+  }
+
+  update(subject: ISubject): Observable<ISubject> {
+    return this.http.put<ISubject>(RESOURCE_URL.concat(this.SUBJECT_URL), subject);
   }
 
   delete(id: number, version: number): Observable<void> {

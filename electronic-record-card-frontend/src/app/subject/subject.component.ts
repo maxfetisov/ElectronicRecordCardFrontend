@@ -36,8 +36,7 @@ export class SubjectComponent implements OnInit {
     },
     {
       icon: "heroPencil",
-      action: () => {
-      }
+      action: this.openUpdateModal.bind(this)
     },
     {
       icon: "heroTrash",
@@ -100,6 +99,25 @@ export class SubjectComponent implements OnInit {
     modalRef.componentInstance.onCreateOrUpdate = (value: any) => this.create(value);
   }
 
+  protected openUpdateModal(id: number): void {
+    const subject = this.subjectPage?.content
+      ?.find(element => element.id === id);
+    if(!subject) {
+      return;
+    }
+    const modalRef = this.modalService.open(CreateUpdateModalComponent, {
+      backdrop: true,
+    });
+    modalRef.componentInstance.header = 'Изменение предмета';
+    modalRef.componentInstance.inputs = [{
+      label: 'Название',
+      name: 'name',
+      type: 'text',
+      value: subject?.name
+    }];
+    modalRef.componentInstance.onCreateOrUpdate = (value: any) => this.update(subject, value);
+  }
+
   protected openDeleteModal(id: number): void {
     const modalRef = this.modalService.open(DeleteModalComponent, {
       backdrop: true,
@@ -111,6 +129,14 @@ export class SubjectComponent implements OnInit {
   private create(subject: any): void {
     this.subjectService.create(subject)
       .subscribe(() => this.load(this.selectedPage));
+  }
+
+  private update(oldSubject: ISubject, newSubject: any) {
+    this.subjectService.update({
+      id: oldSubject.id,
+      version: oldSubject.version,
+      ...newSubject
+    }).subscribe(() => this.load(this.selectedPage));
   }
 
   private delete(id: number): void {

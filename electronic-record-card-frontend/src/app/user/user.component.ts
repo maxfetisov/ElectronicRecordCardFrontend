@@ -35,7 +35,7 @@ export class UserComponent implements OnInit{
     },
     {
       icon: "heroPencil",
-      action: () => {}
+      action: this.openUpdateModal.bind(this)
     },
     {
       icon: "heroTrash",
@@ -180,6 +180,104 @@ export class UserComponent implements OnInit{
     });
   }
 
+  protected openUpdateModal(id: number): void {
+    combineLatest([
+      this.groupService.getAll(),
+      this.instituteService.getAll(),
+      this.accountService.getRoles()
+    ]).subscribe(([groups, institutes, roles]) => {
+      const user = this.userPage?.content
+        ?.find(element => element.id === id);
+      if (!user) {
+        return;
+      }
+      const modalRef = this.modalService.open(CreateUpdateModalComponent, {
+        backdrop: true,
+      });
+      modalRef.componentInstance.header = 'Изменение пользователя';
+      modalRef.componentInstance.inputs = [{
+        label: 'Логин',
+        name: 'login',
+        type: 'text',
+        value: user.login
+      },
+        {
+          label: 'Фамилия',
+          name: 'lastName',
+          type: 'text',
+          value: user.lastName
+        },
+        {
+          label: 'Имя',
+          name: 'firstName',
+          type: 'text',
+          value: user.firstName
+        },
+        {
+          label: 'Отчество',
+          name: 'middleName',
+          type: 'text',
+          value: user.middleName
+        },
+        {
+          label: 'Номер телефона',
+          name: 'phoneNumber',
+          type: 'tel',
+          value: user.phoneNumber
+        },
+        {
+          label: 'Адрес электронной почты',
+          name: 'email',
+          type: 'email',
+          value: user.email
+        },
+        {
+          label: 'Номер зачетной книжки',
+          name: 'recordBookNumber',
+          type: 'text',
+          value: user.recordBookNumber
+        },
+        {
+          label: 'Группа',
+          name: 'groupId',
+          type: 'select',
+          value: [user.groupId],
+          options: groups.map(group => {
+            return {
+              id: group.id,
+              title: group.name
+            }
+          })
+        },
+        {
+          label: 'Институт',
+          name: 'instituteId',
+          type: 'select',
+          value: [user.instituteId],
+          options: institutes.map(institute => {
+            return {
+              id: institute.id,
+              title: institute.name
+            }
+          })
+        },
+        {
+          label: 'Роли',
+          name: 'roles',
+          type: 'select',
+          value: user.roles,
+          multiple: true,
+          options: roles.map(role => {
+            return {
+              id: role.id,
+              title: role.name
+            }
+          })
+        }];
+      modalRef.componentInstance.onCreateOrUpdate = (value: any) => this.update(user, value);
+    });
+  }
+
   protected openDeleteModal(id: number): void {
     const modalRef = this.modalService.open(DeleteModalComponent, {
       backdrop: true,
@@ -193,6 +291,16 @@ export class UserComponent implements OnInit{
     user.groupId = user.groupId[0];
     this.userService.create(user)
       .subscribe(() => this.load(this.selectedPage));
+  }
+
+  private update(oldUser: IUser, newUser: any) {
+    newUser.instituteId = newUser.instituteId[0];
+    newUser.groupId = newUser.groupId[0];
+    this.userService.update({
+      id: oldUser.id,
+      version: oldUser.version,
+      ...newUser
+    }).subscribe(() => this.load(this.selectedPage));
   }
 
   private delete(id: number): void {

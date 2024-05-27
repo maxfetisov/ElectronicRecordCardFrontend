@@ -32,7 +32,7 @@ protected actions: IButton[] = [
     },
     {
       icon: "heroPencil",
-      action: () => {}
+      action: this.openUpdateModal.bind(this)
     },
     {
       icon: "heroTrash",
@@ -119,6 +119,50 @@ protected addAction: IButton = {
     });
   }
 
+  protected openUpdateModal(id: number): void {
+    this.instituteService.getAll().subscribe(institutes => {
+      const group = this.groupPage?.content
+        ?.find(element => element.id === id);
+      if (!group) {
+        return;
+      }
+      const modalRef = this.modalService.open(CreateUpdateModalComponent, {
+        backdrop: true,
+      });
+      modalRef.componentInstance.header = 'Изменение группы';
+      modalRef.componentInstance.inputs = [{
+        label: 'Название',
+        name: 'name',
+        type: 'text',
+        value: group.name
+      },
+        {
+          label: 'Полное название',
+          name: 'fullName',
+          type: 'text',
+          value: group.fullName
+        },
+        {
+          label: 'Дата поступления',
+          name: 'admissionDate',
+          type: 'date',
+          value: group.admissionDate
+        },
+        {
+          label: 'Институт',
+          name: 'instituteId',
+          type: 'select',
+          value: [group.instituteId],
+          options: institutes.map(institute => {
+            return {
+              id: institute.id,
+              title: institute.name
+            }
+          })
+        }];
+      modalRef.componentInstance.onCreateOrUpdate = (value: any) => this.update(group, value);
+    });
+  }
 
   protected openDeleteModal(id: number): void {
     const modalRef = this.modalService.open(DeleteModalComponent, {
@@ -132,6 +176,15 @@ protected addAction: IButton = {
     group.instituteId = group.instituteId[0];
     this.groupService.create(group)
       .subscribe(() => this.load(this.selectedPage));
+  }
+
+  private update(oldGroup: IGroup, newGroup: any) {
+    newGroup.instituteId = newGroup.instituteId[0];
+    this.groupService.update({
+      id: oldGroup.id,
+      version: oldGroup.version,
+      ...newGroup
+    }).subscribe(() => this.load(this.selectedPage));
   }
 
   private delete(id: number): void {

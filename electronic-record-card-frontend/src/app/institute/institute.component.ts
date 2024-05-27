@@ -31,8 +31,7 @@ export class InstituteComponent implements OnInit {
     },
     {
       icon: "heroPencil",
-      action: () => {
-      }
+      action: this.openUpdateModal.bind(this)
     },
     {
       icon: "heroTrash",
@@ -101,6 +100,32 @@ export class InstituteComponent implements OnInit {
     ];
     modalRef.componentInstance.onCreateOrUpdate = (value: any) => this.create(value);
   }
+  protected openUpdateModal(id: number): void {
+    const institute = this.institutePage?.content
+      ?.find(element => element.id === id);
+    if(!institute) {
+      return;
+    }
+    const modalRef = this.modalService.open(CreateUpdateModalComponent, {
+      backdrop: true,
+    });
+    modalRef.componentInstance.header = 'Изменение института';
+    modalRef.componentInstance.inputs = [{
+      label: 'Название',
+      name: 'name',
+      type: 'text',
+      value: institute.name
+    },
+      {
+        label: 'Полное название',
+        name: 'fullName',
+        type: 'text',
+        value: institute.fullName
+      }
+    ];
+    modalRef.componentInstance.onCreateOrUpdate = (value: any) => this.update(institute, value);
+  }
+
 
   protected openDeleteModal(id: number): void {
     const modalRef = this.modalService.open(DeleteModalComponent, {
@@ -113,6 +138,14 @@ export class InstituteComponent implements OnInit {
   private create(institute: any): void {
     this.instituteService.create(institute)
       .subscribe(() => this.load(this.selectedPage));
+  }
+
+  private update(oldInstitute: IInstitute, newInstitute: any) {
+    this.instituteService.update({
+      id: oldInstitute.id,
+      version: oldInstitute.version,
+      ...newInstitute
+    }).subscribe(() => this.load(this.selectedPage));
   }
 
   private delete(id: number): void {

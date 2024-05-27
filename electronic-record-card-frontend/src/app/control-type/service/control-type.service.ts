@@ -23,4 +23,8 @@ export class ControlTypeService {
     return this.http.get<IControlType>(RESOURCE_URL.concat(this.CONTROL_TYPE_URL, '/', String(id)));
   }
 
+  update(controlType: IControlType): Observable<IControlType> {
+    return this.http.put<IControlType>(RESOURCE_URL.concat(this.CONTROL_TYPE_URL), controlType);
+  }
+
 }

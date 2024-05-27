@@ -5,6 +5,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {IMark} from "./model/mark.model";
 import {MarkService} from "./service/mark.service";
 import {ViewModalComponent} from "../modal/view-modal/view-modal.component";
+import {CreateUpdateModalComponent} from "../modal/create-update-modal/create-update-modal.component";
 
 @Component({
   selector: 'app-mark',
@@ -26,7 +27,7 @@ export class MarkComponent implements OnInit{
     },
     {
       icon: "heroPencil",
-      action: () => {}
+      action: this.openUpdateModal.bind(this)
     }
   ];
 
@@ -37,14 +38,7 @@ export class MarkComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.markService.getAll()
-      .subscribe(marks => {
-        this.marks = marks;
-        this.listItems = marks.map(mark => { return {
-          id: mark.id,
-          text: mark.title,
-        }});
-      });
+    this.load();
   }
 
   protected openViewModal(id: number): void {
@@ -57,6 +51,44 @@ export class MarkComponent implements OnInit{
         'Название': mark.title
       };
     });
+  }
+
+  protected openUpdateModal(id: number): void {
+    const mark = this.marks
+      ?.find(element => element.id === id);
+    if(!mark) {
+      return;
+    }
+    const modalRef = this.modalService.open(CreateUpdateModalComponent, {
+      backdrop: true,
+    });
+    modalRef.componentInstance.header = 'Изменение оценки';
+    modalRef.componentInstance.inputs = [{
+      label: 'Название',
+      name: 'title',
+      type: 'text',
+      value: mark?.title
+    }];
+    modalRef.componentInstance.onCreateOrUpdate = (value: any) => this.update(mark, value);
+  }
+
+  private load() {
+    this.markService.getAll()
+      .subscribe(marks => {
+        this.marks = marks;
+        this.listItems = marks.map(mark => { return {
+          id: mark.id,
+          text: mark.title,
+        }});
+      });
+  }
+
+  private update(oldMark: IMark, newMark: any) {
+    this.markService.update({
+      id: oldMark.id,
+      version: oldMark.version,
+      ...newMark
+    }).subscribe(() => this.load());
   }
 
 }
