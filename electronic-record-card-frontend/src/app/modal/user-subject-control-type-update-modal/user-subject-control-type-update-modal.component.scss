@@ -1,0 +1,32 @@
+.student {
+  width: 100%;
+  transition: all .5s ease;
+  border-top: 1px solid rgba(0, 0, 0, 0);
+  border-bottom: 1px solid rgba(0, 0, 0, 0);
+  padding: .5rem;
+}
+
+.student:hover {
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  transition: all .5s ease;
+}
+
+.selected-student {
+
+}
+
+.modal-body {
+  padding: 0;
+}
+
+ng-icon {
+  margin-left: .5rem;
+  margin-right: .5rem;
+  transition: all .5s ease;
+}
+
+.selected-student>ng-icon {
+  transition: all .5s ease;
+  transform: rotateX(180deg);
+}

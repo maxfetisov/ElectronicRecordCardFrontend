@@ -8,6 +8,10 @@ import {IUser} from "../user/model/user.model";
 import {Role} from "../account/model/account.model";
 import {UserSubjectControlTypeService} from "./service/user-subject-control-type.service";
 import {IUserSubjectControlType} from "./model/user-subject-control-type.model";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {
+  UserSubjectControlTypeUpdateModalComponent
+} from "../modal/user-subject-control-type-update-modal/user-subject-control-type-update-modal.component";
 
 @Component({
   selector: 'app-user-subject-control-types',
@@ -36,7 +40,8 @@ export class UserSubjectControlTypesComponent implements OnInit {
   constructor(
     private subjectService: SubjectService,
     private userService: UserService,
-    private userSubjectControlTypeService: UserSubjectControlTypeService
+    private userSubjectControlTypeService: UserSubjectControlTypeService,
+    private modalService: NgbModal
   ) {
   }
 
@@ -84,6 +89,16 @@ export class UserSubjectControlTypesComponent implements OnInit {
         });
       })
     }
+  }
+
+  openUpdateModal(semester: number): void {
+    const modalRef = this.modalService.open(UserSubjectControlTypeUpdateModalComponent, {
+      backdrop: true
+    });
+    modalRef.componentInstance.subject = this.selectedSubject;
+    modalRef.componentInstance.teacher = this.selectedTeacher;
+    modalRef.componentInstance.semester = semester;
+    modalRef.componentInstance.userSubjectControlTypes = this.userSubjectControlTypes?.get(semester);
   }
 
 }

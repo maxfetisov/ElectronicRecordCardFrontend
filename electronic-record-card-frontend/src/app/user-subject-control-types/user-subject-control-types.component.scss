@@ -32,8 +32,8 @@
 
 ng-icon {
   margin-left: .5rem;
+  margin-right: .5rem;
   transition: all .5s ease;
-
 }
 
 .selected-subject {
@@ -92,6 +92,7 @@ ng-icon {
   user-select: none;
   width: 100%;
   z-index: 9;
+  margin-bottom: .5rem;
 }
 
 .semester:hover,
@@ -109,4 +110,13 @@ ng-icon {
   position: sticky;
   top: 2rem;
   transition: all .5s ease;
+}
+
+.semester-container {
+  flex-direction: column;
+}
+
+.semester-container>div {
+  flex-direction: column;
+  width: 100%;
 }

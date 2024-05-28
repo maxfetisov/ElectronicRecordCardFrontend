@@ -1,0 +1,28 @@
+<div class="modal-header d-flex align-items-start">
+  <div class="d-flex align-items-start flex-column">
+    <h4 class="modal-title" id="modal-basic-title">Изменение связей</h4>
+    <h6 class="modal-title">{{subject?.name}}</h6>
+    <h6 class="modal-title">{{teacher?.lastName}} {{teacher?.firstName}} {{teacher?.middleName ?? ''}} ({{teacher?.login}})</h6>
+    <h6 class="modal-title">{{semester}} семестр</h6>
+  </div>
+  <button type="button" class="close-button" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div *ngFor="let student of students">
+    <div
+      class="student"
+      [ngClass]="{
+      'selected-student': selectedStudent === student
+      }"
+      (click)="selectStudent(student)"
+    >
+      <span>{{student?.lastName}} {{student?.firstName}} {{student?.middleName ?? ''}} ({{student?.login}})</span>
+      <ng-icon name="heroChevronDown"/>
+    </div>
+    <div>
+
+    </div>
+  </div>
+</div>

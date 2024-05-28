@@ -37,17 +37,17 @@
       }"
         >
           <div *ngFor="let semester of userSubjectControlTypes?.keys()">
-            <div
+            <button
               class="semester"
               [ngClass]="{
         'selected-semester': false
       }"
+              (click)="openUpdateModal(semester)"
             >
               <span>{{semester}} семестр</span>
-              <ng-icon name="heroChevronDown"/>
-            </div>
+            </button>
           </div>
-          <button type="button" class="btn">
+          <button class="semester" type="button">
             <ng-icon name="heroPlus"/>
             <span>Добавить семестр</span>
           </button>
