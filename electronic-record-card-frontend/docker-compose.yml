@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  electronic-record-card-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: electronic-record-card-fronend
+    container_name: electronic-record-card-frontend
+    ports:
+      - '9000:9000'
