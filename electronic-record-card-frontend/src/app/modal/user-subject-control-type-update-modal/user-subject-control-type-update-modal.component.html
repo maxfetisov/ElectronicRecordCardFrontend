@@ -1,9 +1,9 @@
 <div class="modal-header d-flex align-items-start">
   <div class="d-flex align-items-start flex-column">
-    <h4 class="modal-title" id="modal-basic-title">Изменение связей</h4>
-    <h6 class="modal-title">{{subject?.name}}</h6>
-    <h6 class="modal-title">{{teacher?.lastName}} {{teacher?.firstName}} {{teacher?.middleName ?? ''}} ({{teacher?.login}})</h6>
-    <h6 class="modal-title">{{semester}} семестр</h6>
+    <h4 class="modal-title mb-3" id="modal-basic-title">Изменение связей</h4>
+    <h6 class="modal-title">Предмет: {{subject?.name}}</h6>
+    <h6 class="modal-title">Преподаватель: {{teacher?.lastName}} {{teacher?.firstName}} {{teacher?.middleName ?? ''}} ({{teacher?.login}})</h6>
+    <h6 class="modal-title">Семестр: {{semester}}</h6>
   </div>
   <button type="button" class="close-button" aria-label="Close" (click)="close()">
     <span aria-hidden="true">&times;</span>
@@ -19,10 +19,136 @@
       (click)="selectStudent(student)"
     >
       <span>{{student?.lastName}} {{student?.firstName}} {{student?.middleName ?? ''}} ({{student?.login}})</span>
-      <ng-icon name="heroChevronDown"/>
     </div>
-    <div>
-
+    <form
+      [formGroup]="studentForm"
+      class="student-form"
+      *ngIf="selectedStudent === student"
+      (ngSubmit)="update()"
+    >
+      <label for="hoursNumberUpdate"> Количество часов:</label>
+      <input
+        id="hoursNumberUpdate"
+        class="form-control"
+        type="number"
+        [min]="0"
+        [formControl]="studentForm.controls.hoursNumber"
+      />
+      <label for="controlTypeUpdate">Тип контроля:</label>
+      <select
+        id="controlTypeUpdate"
+        class="form-control"
+        [formControl]="studentForm.controls.controlType"
+      >
+        <option [value]="0">Не выбран</option>
+        <option
+          *ngFor="let controlType of controlTypes"
+          [value]="controlType.id"
+        >{{controlType.title}}</option>
+      </select>
+      <label for="noteUpdate">Дополнительные сведения:</label>
+      <input
+        id="noteUpdate"
+        class="form-control"
+        type="text"
+        [formControl]="studentForm.controls.note"
+      />
+      <div class="d-flex justify-content-between">
+        <button type="button" class="btn" (click)="delete()">Удалить</button>
+        <button type="submit" class="btn">Сохранить изменения</button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="modal-footer">
+  <div>
+  <div
+    class="student"
+    [ngClass]="{
+      'selected-student': createSelected
+    }"
+    (click)="selectCreate()"
+  >Добавить связь</div>
+  <form
+    class="student-form"
+    [formGroup]="createForm"
+    *ngIf="createSelected"
+  >
+    <label for="hoursNumber"> Количество часов:</label>
+    <input
+      id="hoursNumber"
+      class="form-control"
+      type="number"
+      [min]="0"
+      [formControl]="createForm.controls.hoursNumber"
+    />
+    <label for="controlType">Тип контроля:</label>
+    <select
+      id="controlType"
+      class="form-control"
+      [formControl]="createForm.controls.controlType"
+    >
+      <option [value]="0">Не выбран</option>
+      <option
+        *ngFor="let controlType of controlTypes"
+        [value]="controlType.id"
+      >{{controlType.title}}</option>
+    </select>
+    <div class="d-flex justify-content-between align-items-center choice-container">
+      <span>Создание для: </span>
+      <div
+        class="student choice"
+        [ngClass]="{
+          'selected-student': selectedChoice === 1
+        }"
+        (click)="selectGroupChoice()"
+      >Группы</div>
+      <div
+        class="student choice"
+        [ngClass]="{
+          'selected-student': selectedChoice === 0
+        }"
+        (click)="selectStudentChoice()"
+      >Студента</div>
     </div>
+    <div *ngIf="selectedChoice === 0">
+      <label for="student">Студент:</label>
+      <select
+        id="student"
+        class="form-control"
+        [formControl]="createForm.controls.student"
+      >
+        <option [value]="0">Не выбран</option>
+        <option
+          *ngFor="let student of allStudents"
+          [value]="student.id"
+        >{{student?.lastName}} {{student?.firstName}} {{student?.middleName ?? ''}} ({{student?.login}})</option>
+      </select>
+    </div>
+    <div *ngIf="selectedChoice === 1">
+      <label for="group">Группа:</label>
+      <select
+        id="group"
+        class="form-control"
+        [formControl]="createForm.controls.group"
+      >
+        <option [value]="0">Не выбран</option>
+        <option
+          *ngFor="let group of groups"
+          [value]="group.id"
+        >{{group.name}}</option>
+      </select>
+    </div>
+    <label for="note">Дополнительные сведения:</label>
+    <input
+      id="note"
+      class="form-control"
+      type="text"
+      [formControl]="createForm.controls.note"
+    />
+    <div class="d-flex justify-content-end">
+      <button type="submit" class="btn" (click)="create()">Создать связь</button>
+    </div>
+  </form>
   </div>
 </div>

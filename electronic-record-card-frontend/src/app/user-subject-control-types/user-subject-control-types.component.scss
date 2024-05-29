@@ -69,7 +69,7 @@ ng-icon {
 
 .semester-container>div,
 .teacher-container>div {
-  width: 95%;
+  width: 100%;
   display: block;
 }
 
@@ -92,6 +92,7 @@ ng-icon {
   user-select: none;
   width: 100%;
   z-index: 9;
+  margin-top: .5rem;
   margin-bottom: .5rem;
 }
 

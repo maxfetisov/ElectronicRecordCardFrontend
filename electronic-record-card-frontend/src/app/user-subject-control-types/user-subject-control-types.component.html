@@ -13,7 +13,7 @@
     </div>
     <div
       *ngIf="selectedSubject === subject"
-      class="teacher-container"
+      class="teacher-container flex-column"
       [ngClass]="{
         'selected-teacher-container': selectedSubject === subject
       }"
@@ -31,7 +31,7 @@
         </div>
         <div
           *ngIf="selectedTeacher === teacher"
-          class="semester-container"
+          class="semester-container flex-column"
           [ngClass]="{
         'selected-teacher-container': selectedSubject === subject
       }"

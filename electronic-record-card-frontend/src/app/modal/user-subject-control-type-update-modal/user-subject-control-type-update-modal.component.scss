@@ -4,6 +4,8 @@
   border-top: 1px solid rgba(0, 0, 0, 0);
   border-bottom: 1px solid rgba(0, 0, 0, 0);
   padding: .5rem;
+  cursor: pointer;
+  margin: 0;
 }
 
 .student:hover {
@@ -13,7 +15,11 @@
 }
 
 .selected-student {
-
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top: 0;
+  transition: all .5s ease;
 }
 
 .modal-body {
@@ -29,4 +35,44 @@ ng-icon {
 .selected-student>ng-icon {
   transition: all .5s ease;
   transform: rotateX(180deg);
+}
+
+.student-form {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+input, select {
+  margin-bottom: 1rem;
+}
+
+label {
+  margin-bottom: .5rem;
+}
+
+.modal-footer {
+  width: 100%;
+  bottom: 0;
+  position: sticky;
+  padding: 0;
+}
+
+.modal-footer>div {
+  margin: 0;
+  width: 100%;
+}
+
+.choice {
+  width: 30%;
+  text-align: center;
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0);
+}
+
+.choice:hover {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.choice-container {
+  margin-bottom: 1rem;
 }

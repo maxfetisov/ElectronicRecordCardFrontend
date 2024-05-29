@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {RESOURCE_URL} from "../../app.constants";
-import {IUserSubjectControlType} from "../model/user-subject-control-type.model";
+import {IUserSubjectControlType, IUserSubjectControlTypeByGroup} from "../model/user-subject-control-type.model";
 
 @Injectable({
   providedIn: "root"
@@ -22,6 +22,11 @@ export class UserSubjectControlTypeService {
   create(userSubjectControlType: IUserSubjectControlType): Observable<IUserSubjectControlType> {
     return this.http.post<IUserSubjectControlType>(RESOURCE_URL.concat(this.USER_SUBJECT_CONTROL_TYPE_URL), userSubjectControlType);
   }
+
+  createByGroup(userSubjectControlType: IUserSubjectControlTypeByGroup): Observable<IUserSubjectControlType[]> {
+    return this.http.post<IUserSubjectControlType[]>(RESOURCE_URL.concat(this.USER_SUBJECT_CONTROL_TYPE_URL, '/by-group'), userSubjectControlType);
+  }
+
 
   update(userSubjectControlType: IUserSubjectControlType): Observable<IUserSubjectControlType> {
     return this.http.put<IUserSubjectControlType>(RESOURCE_URL.concat(this.USER_SUBJECT_CONTROL_TYPE_URL), userSubjectControlType);

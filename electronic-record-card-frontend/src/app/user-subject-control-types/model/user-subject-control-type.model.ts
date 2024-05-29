@@ -1,4 +1,8 @@
-export interface IUserSubjectControlType {
+import {IVersion} from "../../version/model/version.model";
+
+export interface IUserSubjectControlType extends IVersion {
+
+  id?:  number,
 
   semester: number,
 
