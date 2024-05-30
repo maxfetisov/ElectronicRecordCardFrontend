@@ -12,6 +12,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {
   UserSubjectControlTypeUpdateModalComponent
 } from "../modal/user-subject-control-type-update-modal/user-subject-control-type-update-modal.component";
+import {CreateSemesterModalComponent} from "../modal/create-semester-modal/create-semester-modal.component";
 
 @Component({
   selector: 'app-user-subject-control-types',
@@ -99,6 +100,20 @@ export class UserSubjectControlTypesComponent implements OnInit {
     modalRef.componentInstance.teacher = this.selectedTeacher;
     modalRef.componentInstance.semester = semester;
     modalRef.componentInstance.userSubjectControlTypes = this.userSubjectControlTypes?.get(semester);
+  }
+
+  openCreateSemesterModal(): void {
+    const modalRef = this.modalService.open(CreateSemesterModalComponent, {
+      backdrop: true
+    });
+    modalRef.componentInstance.onCreate = (semester: number) => this.createSemester(semester);
+  }
+
+  createSemester(semester: number): void {
+    if(this.userSubjectControlTypes?.has(semester)) {
+      return;
+    }
+    this.userSubjectControlTypes?.set(semester, []);
   }
 
 }
