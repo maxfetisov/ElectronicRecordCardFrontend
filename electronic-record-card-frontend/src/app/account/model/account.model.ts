@@ -30,6 +30,12 @@ export interface IRole {
 
 }
 
+export interface IRefreshRequest {
+
+  refreshToken: string
+
+}
+
 export enum Role {
   STUDENT = "STUDENT",
   TEACHER = "TEACHER",

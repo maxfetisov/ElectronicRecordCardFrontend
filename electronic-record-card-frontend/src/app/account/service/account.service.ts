@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {combineLatest, Observable, ReplaySubject, Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {IAuthRequest, IAuthResponse, IChangePasswordRequest, IRole} from "../model/account.model";
+import {IAuthRequest, IAuthResponse, IChangePasswordRequest, IRefreshRequest, IRole} from "../model/account.model";
 import {RESOURCE_URL} from "../../app.constants";
 import {IUser} from "../../user/model/user.model";
 
@@ -42,6 +42,10 @@ export class AccountService {
 
   authenticate(request: IAuthRequest): Observable<IAuthResponse> {
     return this.http.post<IAuthResponse>(RESOURCE_URL.concat(this.USER_URL, '/authenticate'), request);
+  }
+
+  refresh(request: IRefreshRequest): Observable<IAuthResponse> {
+    return this.http.post<IAuthResponse>(RESOURCE_URL.concat(this.USER_URL, '/refresh'), request);
   }
 
   changePassword(request: IChangePasswordRequest): Observable<void> {
